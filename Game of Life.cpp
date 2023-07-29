@@ -30,12 +30,12 @@ int main()
     cin >> sr >> sc >> newColor;
     Solution obj;
     // vector<vector<int>> ans = obj.floodFill(image, sr, sc, newColor);
-    for (auto i : ans)
-    {
-      for (auto j : i)
-        cout << j << " ";
-      cout << "\n";
-    }
+    // for (auto i : ans)
+    // {
+    //   for (auto j : i)
+    //     cout << j << " ";
+    //   cout << "\n";
+    // }
   }
   return 0;
 }
@@ -81,8 +81,8 @@ class Solution {
 public:
     void gameOfLife(vector<vector<int>>& board) {
         int n=board.size();
-int m=board[0].size();
-vector<vector<int>> grid=board;
+        int m=board[0].size();
+        vector<vector<int>> grid=board;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++)
             {
@@ -156,6 +156,131 @@ else if(board[i][j]==0)
         board=grid;
 
 
+    }
+};
+
+
+
+
+
+
+
+
+
+
+void gameOfLife(vector<vector<int>>& board) {
+    int m = board.size(), n = m ? board[0].size() : 0;
+    for (int i=0; i<m; ++i) {
+        for (int j=0; j<n; ++j) {
+            int count = 0;
+            for (int I=max(i-1, 0); I<min(i+2, m); ++I)
+                for (int J=max(j-1, 0); J<min(j+2, n); ++J)
+                    count += board[I][J] & 1;
+            if (count == 3 || count - board[i][j] == 3)
+                board[i][j] |= 2;
+        }
+    }
+    for (int i=0; i<m; ++i)
+        for (int j=0; j<n; ++j)
+            board[i][j] >>= 1;
+}
+
+
+
+
+
+class Solution {
+public:
+    int cal(vector<vector<int>>board,int i,int j)
+    {
+        int n=board.size(),m=board[0].size();
+        int sum=0;
+        if(i>0)  sum+=board[i-1][j];//up
+        if(i<n-1) sum+=board[i+1][j];//down
+        if(j>0) sum+=board[i][j-1];//left
+        if(j<m-1) sum+=board[i][j+1];//right
+        if(i>0 && j>0) sum+=board[i-1][j-1];//top left diagonal
+        if(i<n-1 && j>0) sum+=board[i+1][j-1];//down left diagonal
+        if(i>0 && j<m-1) sum+=board[i-1][j+1];//top right diagonal
+        if(i<n-1 && j<m-1) sum+=board[i+1][j+1];//down right diagonal
+        return sum;
+    }
+
+    void gameOfLife(vector<vector<int>>& board) {
+        int n=board.size(),m=board[0].size();
+      vector<vector<int>> ans(n,vector<int>(m));
+      for(int i=0;i<n;i++)
+      {
+          for(int j=0;j<m;j++)
+          {
+              int sum=cal(board,i,j);
+              if(board[i][j]==0 && sum==3)
+              ans[i][j]=1;
+              else
+              ans[i][j]=0;
+              if(board[i][j]==1 &&sum<2)
+              ans[i][j]=0;
+              else if(board[i][j]==1 && sum==2 ||sum==3)
+              ans[i][j]=1;
+              else
+              ans[i][j]=0;
+          }
+      }
+        board=ans; 
+    }
+};
+
+
+
+
+class Solution {
+public:
+    
+    int noOfOnes(int i, int j ,vector<vector<int>>& board, int m, int n ){
+        int count =0;
+        
+        if(i>0 and board[i-1][j]>=1 ) count++;
+        if(i<m-1 and board[i+1][j]>=1 ) count++;
+        if(j>0 and board[i][j-1]>= 1 ) count++;
+        if(j<n-1 and board[i][j+1]>=1 ) count++;
+        if(i>0 and j>0 and board[i-1][j-1]>= 1) count++;        
+        if(i<m-1 and j<n-1 and board[i+1][j+1]>= 1) count++;
+        if(i<m-1 and j>0 and board[i+1][j-1]>= 1) count++;
+        if(i>0 and j<n-1 and board[i-1][j+1]>= 1 ) count++;
+        
+        return count;
+    }
+    
+    void gameOfLife(vector<vector<int>>& board) {
+        
+        int m = board.size();
+        int n= board[0].size();
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n ; j++){
+                if(board[i][j]==0){
+                    if(noOfOnes(i,j,board,m,n)==3){
+                        board[i][j]=-1;
+                    }
+                }else if(board[i][j]==1){
+                    if(noOfOnes(i,j,board,m,n) < 2){
+                        board[i][j] =2;
+                    }else if(noOfOnes(i,j,board,m,n) >3){
+                        board[i][j] =2;
+                    }
+                }
+            }
+        }
+        
+         for(int i=0; i<m; i++){
+            for(int j=0; j<n ; j++){
+              if(board[i][j]==2){
+                  board[i][j]=0;
+              }else if(board[i][j]==-1){
+                  board[i][j]=1;
+              }
+            }
+         }  
     }
 };
 
