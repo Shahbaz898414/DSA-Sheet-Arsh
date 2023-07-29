@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-int strStr(string haystack, string needle) {
+int strStr(string h, string n) {
         int ans=-1,temp;
         bool flag=true;
         for(int i=0;i<h.size();i++)
