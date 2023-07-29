@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+    void gameOfLife(vector<vector<int>>& board) {
         
     }
 };
@@ -25,7 +25,7 @@ int main(){
 		int sr, sc, newColor;
 		cin >> sr >> sc >> newColor;
 		Solution obj;
-		vector<vector<int>> ans = obj.floodFill(image, sr, sc, newColor);
+		// vector<vector<int>> ans = obj.floodFill(image, sr, sc, newColor);
 		for(auto i: ans){
 			for(auto j: i)
 				cout << j << " ";
