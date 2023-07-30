@@ -5,9 +5,7 @@ using namespace std;
 // } Driver Code Enads
 
 
-int findMaxValueOfEquation(vector<vector<int>>& points, int k) {
-        
-}
+
 
 //{ Driver Code Starts.
 int main()
